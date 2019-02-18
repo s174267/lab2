@@ -1,0 +1,580 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DatabasModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="DatabasModelStoreContainer">
+    <EntitySet Name="Person" EntityType="DatabasModel.Store.Person" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UtbProgram" EntityType="DatabasModel.Store.UtbProgram" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Anmälan" EntityType="DatabasModel.Store.Anmälan" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Aktivitet" EntityType="DatabasModel.Store.Aktivitet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Erbjudande" EntityType="DatabasModel.Store.Erbjudande" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ämne" EntityType="DatabasModel.Store.Ämne" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Person_Alumn" EntityType="DatabasModel.Store.Person_Alumn" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Person_Anställd" EntityType="DatabasModel.Store.Person_Anställd" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="AlumnUtbProgram" Association="DatabasModel.Store.AlumnUtbProgram">
+      <End Role="Alumn" EntitySet="Person_Alumn" />
+      <End Role="UtbProgram" EntitySet="UtbProgram" />
+    </AssociationSet>
+    <AssociationSet Name="AlumnAnmälan" Association="DatabasModel.Store.AlumnAnmälan">
+      <End Role="Alumn" EntitySet="Person_Alumn" />
+      <End Role="Anmälan" EntitySet="Anmälan" />
+    </AssociationSet>
+    <AssociationSet Name="AnställdAktivitet" Association="DatabasModel.Store.AnställdAktivitet">
+      <End Role="Anställd" EntitySet="Person_Anställd" />
+      <End Role="Aktivitet" EntitySet="Aktivitet" />
+    </AssociationSet>
+    <AssociationSet Name="AnmälanErbjudande" Association="DatabasModel.Store.AnmälanErbjudande">
+      <End Role="Anmälan" EntitySet="Anmälan" />
+      <End Role="Erbjudande" EntitySet="Erbjudande" />
+    </AssociationSet>
+    <AssociationSet Name="AnmälanAktivitet" Association="DatabasModel.Store.AnmälanAktivitet">
+      <End Role="Anmälan" EntitySet="Anmälan" />
+      <End Role="Aktivitet" EntitySet="Aktivitet" />
+    </AssociationSet>
+    <AssociationSet Name="AktivitetÄmne" Association="DatabasModel.Store.AktivitetÄmne">
+      <End Role="Aktivitet" EntitySet="Aktivitet" />
+      <End Role="Ämne" EntitySet="Ämne" />
+    </AssociationSet>
+    <AssociationSet Name="ErbjudandeÄmne" Association="DatabasModel.Store.ErbjudandeÄmne">
+      <End Role="Erbjudande" EntitySet="Erbjudande" />
+      <End Role="Ämne" EntitySet="Ämne" />
+    </AssociationSet>
+    <AssociationSet Name="AnställdErbjudande" Association="DatabasModel.Store.AnställdErbjudande">
+      <End Role="Anställd" EntitySet="Person_Anställd" />
+      <End Role="Erbjudande" EntitySet="Erbjudande" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Alumn_inherits_Person" Association="DatabasModel.Store.FK_Alumn_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Alumn" EntitySet="Person_Alumn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Anställd_inherits_Person" Association="DatabasModel.Store.FK_Anställd_inherits_Person">
+      <End Role="Person" EntitySet="Person" />
+      <End Role="Anställd" EntitySet="Person_Anställd" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Person">
+    <Key>
+      <PropertyRef Name="PersNr" />
+    </Key>
+    <Property Name="Förnamn" Type="nvarchar(max)" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Efternamn" Type="nvarchar(max)" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersNr" Type="bigint" Nullable="false" />
+    <Property Name="Adress" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PostNr" Type="bigint" Nullable="false" />
+    <Property Name="Ort" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="TelNr" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lösenord" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UtbProgram">
+    <Key>
+      <PropertyRef Name="ProgID" />
+    </Key>
+    <Property Name="ProgID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Namn" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Anmälan">
+    <Key>
+      <PropertyRef Name="AnmId" />
+    </Key>
+    <Property Name="AnmId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Tidpunkt" Type="datetime" Nullable="false" />
+    <Property Name="Alumn_PersNr" Type="bigint" Nullable="false" />
+    <Property Name="Erbjudande_ErbjID" Type="int" Nullable="false" />
+    <Property Name="Aktivitet_AktID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Aktivitet">
+    <Key>
+      <PropertyRef Name="AktID" />
+    </Key>
+    <Property Name="AktID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Namn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Tillfälle" Type="datetime" Nullable="false" />
+    <Property Name="AntalPlatser" Type="int" Nullable="false" />
+    <Property Name="Anställd_PersNr" Type="bigint" Nullable="false" />
+    <Property Name="Ämne_ÄmnesID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Erbjudande">
+    <Key>
+      <PropertyRef Name="ErbjID" />
+    </Key>
+    <Property Name="ErbjID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Namn" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StartDatum" Type="datetime" Nullable="false" />
+    <Property Name="SlutDatum" Type="datetime" Nullable="false" />
+    <Property Name="Ämne_ÄmnesID" Type="int" Nullable="false" />
+    <Property Name="Anställd_PersNr" Type="bigint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Ämne">
+    <Key>
+      <PropertyRef Name="ÄmnesID" />
+    </Key>
+    <Property Name="ÄmnesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Namn" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person_Alumn">
+    <Key>
+      <PropertyRef Name="PersNr" />
+    </Key>
+    <Property Name="AlumnId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Program" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Aktiv" Type="bit" Nullable="false" />
+    <Property Name="ExamensÅr" Type="int" Nullable="false" />
+    <Property Name="PersNr" Type="bigint" Nullable="false" />
+    <Property Name="UtbProgram_ProgID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Person_Anställd">
+    <Key>
+      <PropertyRef Name="PersNr" />
+    </Key>
+    <Property Name="AnstID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersNr" Type="bigint" Nullable="false" />
+  </EntityType>
+  <Association Name="AlumnUtbProgram">
+    <End Role="Alumn" Type="DatabasModel.Store.Person_Alumn" Multiplicity="*" />
+    <End Role="UtbProgram" Type="DatabasModel.Store.UtbProgram" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="UtbProgram">
+        <PropertyRef Name="ProgID" />
+      </Principal>
+      <Dependent Role="Alumn">
+        <PropertyRef Name="UtbProgram_ProgID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AlumnAnmälan">
+    <End Role="Alumn" Type="DatabasModel.Store.Person_Alumn" Multiplicity="1" />
+    <End Role="Anmälan" Type="DatabasModel.Store.Anmälan" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Alumn">
+        <PropertyRef Name="PersNr" />
+      </Principal>
+      <Dependent Role="Anmälan">
+        <PropertyRef Name="Alumn_PersNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnställdAktivitet">
+    <End Role="Anställd" Type="DatabasModel.Store.Person_Anställd" Multiplicity="1" />
+    <End Role="Aktivitet" Type="DatabasModel.Store.Aktivitet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Anställd">
+        <PropertyRef Name="PersNr" />
+      </Principal>
+      <Dependent Role="Aktivitet">
+        <PropertyRef Name="Anställd_PersNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnmälanErbjudande">
+    <End Role="Anmälan" Type="DatabasModel.Store.Anmälan" Multiplicity="*" />
+    <End Role="Erbjudande" Type="DatabasModel.Store.Erbjudande" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Erbjudande">
+        <PropertyRef Name="ErbjID" />
+      </Principal>
+      <Dependent Role="Anmälan">
+        <PropertyRef Name="Erbjudande_ErbjID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnmälanAktivitet">
+    <End Role="Anmälan" Type="DatabasModel.Store.Anmälan" Multiplicity="*" />
+    <End Role="Aktivitet" Type="DatabasModel.Store.Aktivitet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Aktivitet">
+        <PropertyRef Name="AktID" />
+      </Principal>
+      <Dependent Role="Anmälan">
+        <PropertyRef Name="Aktivitet_AktID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AktivitetÄmne">
+    <End Role="Aktivitet" Type="DatabasModel.Store.Aktivitet" Multiplicity="*" />
+    <End Role="Ämne" Type="DatabasModel.Store.Ämne" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Ämne">
+        <PropertyRef Name="ÄmnesID" />
+      </Principal>
+      <Dependent Role="Aktivitet">
+        <PropertyRef Name="Ämne_ÄmnesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ErbjudandeÄmne">
+    <End Role="Erbjudande" Type="DatabasModel.Store.Erbjudande" Multiplicity="*" />
+    <End Role="Ämne" Type="DatabasModel.Store.Ämne" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Ämne">
+        <PropertyRef Name="ÄmnesID" />
+      </Principal>
+      <Dependent Role="Erbjudande">
+        <PropertyRef Name="Ämne_ÄmnesID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AnställdErbjudande">
+    <End Role="Anställd" Type="DatabasModel.Store.Person_Anställd" Multiplicity="1" />
+    <End Role="Erbjudande" Type="DatabasModel.Store.Erbjudande" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Anställd">
+        <PropertyRef Name="PersNr" />
+      </Principal>
+      <Dependent Role="Erbjudande">
+        <PropertyRef Name="Anställd_PersNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Alumn_inherits_Person">
+    <End Role="Person" Type="DatabasModel.Store.Person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Alumn" Type="DatabasModel.Store.Person_Alumn" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersNr" />
+      </Principal>
+      <Dependent Role="Alumn">
+        <PropertyRef Name="PersNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Anställd_inherits_Person">
+    <End Role="Person" Type="DatabasModel.Store.Person" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="Anställd" Type="DatabasModel.Store.Person_Anställd" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Person">
+        <PropertyRef Name="PersNr" />
+      </Principal>
+      <Dependent Role="Anställd">
+        <PropertyRef Name="PersNr" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="DatabasModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+        <EntityContainer Name="DatabasModelContainer" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Person" EntityType="DatabasModel.Person" />
+          <EntitySet Name="UtbProgram" EntityType="DatabasModel.UtbProgram" />
+          <AssociationSet Name="AlumnUtbProgram" Association="DatabasModel.AlumnUtbProgram">
+            <End Role="Alumn" EntitySet="Person" />
+            <End Role="UtbProgram" EntitySet="UtbProgram" />
+          </AssociationSet>
+          <EntitySet Name="Anmälan" EntityType="DatabasModel.Anmälan" />
+          <AssociationSet Name="AlumnAnmälan" Association="DatabasModel.AlumnAnmälan">
+            <End Role="Alumn" EntitySet="Person" />
+            <End Role="Anmälan" EntitySet="Anmälan" />
+          </AssociationSet>
+          <EntitySet Name="Aktivitet" EntityType="DatabasModel.Aktivitet" />
+          <EntitySet Name="Erbjudande" EntityType="DatabasModel.Erbjudande" />
+          <EntitySet Name="Ämne" EntityType="DatabasModel.Ämne" />
+          <AssociationSet Name="AnställdAktivitet" Association="DatabasModel.AnställdAktivitet">
+            <End Role="Anställd" EntitySet="Person" />
+            <End Role="Aktivitet" EntitySet="Aktivitet" />
+          </AssociationSet>
+          <AssociationSet Name="AnmälanErbjudande" Association="DatabasModel.AnmälanErbjudande">
+            <End Role="Anmälan" EntitySet="Anmälan" />
+            <End Role="Erbjudande" EntitySet="Erbjudande" />
+          </AssociationSet>
+          <AssociationSet Name="AnmälanAktivitet" Association="DatabasModel.AnmälanAktivitet">
+            <End Role="Anmälan" EntitySet="Anmälan" />
+            <End Role="Aktivitet" EntitySet="Aktivitet" />
+          </AssociationSet>
+          <AssociationSet Name="AktivitetÄmne" Association="DatabasModel.AktivitetÄmne">
+            <End Role="Aktivitet" EntitySet="Aktivitet" />
+            <End Role="Ämne" EntitySet="Ämne" />
+          </AssociationSet>
+          <AssociationSet Name="ErbjudandeÄmne" Association="DatabasModel.ErbjudandeÄmne">
+            <End Role="Erbjudande" EntitySet="Erbjudande" />
+            <End Role="Ämne" EntitySet="Ämne" />
+          </AssociationSet>
+          <AssociationSet Name="AnställdErbjudande" Association="DatabasModel.AnställdErbjudande">
+            <End Role="Anställd" EntitySet="Person" />
+            <End Role="Erbjudande" EntitySet="Erbjudande" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person" Abstract="true">
+          <Key>
+            <PropertyRef Name="PersNr" />
+          </Key>
+          <Property Name="Förnamn" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Efternamn" Type="String" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersNr" Type="Int64" Nullable="false" />
+          <Property Name="Adress" Type="String" Nullable="false" />
+          <Property Name="PostNr" Type="Int64" Nullable="false" />
+          <Property Name="Ort" Type="String" Nullable="false" />
+          <Property Name="TelNr" Type="String" Nullable="false" />
+          <Property Name="Email" Type="String" Nullable="false" />
+          <Property Name="Lösenord" Type="String" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Alumn" BaseType="DatabasModel.Person">
+          <Property Name="AlumnId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Program" Type="String" Nullable="false" />
+          <Property Name="Aktiv" Type="Boolean" Nullable="false" />
+          <Property Name="ExamensÅr" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UtbProgram" Relationship="DatabasModel.AlumnUtbProgram" FromRole="Alumn" ToRole="UtbProgram" />
+          <NavigationProperty Name="Anmälan" Relationship="DatabasModel.AlumnAnmälan" FromRole="Alumn" ToRole="Anmälan" />
+        </EntityType>
+        <EntityType Name="Anställd" BaseType="DatabasModel.Person">
+          <Property Name="AnstID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Aktivitet" Relationship="DatabasModel.AnställdAktivitet" FromRole="Anställd" ToRole="Aktivitet" />
+          <NavigationProperty Name="Erbjudande" Relationship="DatabasModel.AnställdErbjudande" FromRole="Anställd" ToRole="Erbjudande" />
+        </EntityType>
+        <EntityType Name="UtbProgram">
+          <Key>
+            <PropertyRef Name="ProgID" />
+          </Key>
+          <Property Name="ProgID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namn" Type="String" Nullable="false" />
+          <NavigationProperty Name="Alumn" Relationship="DatabasModel.AlumnUtbProgram" FromRole="UtbProgram" ToRole="Alumn" />
+        </EntityType>
+        <Association Name="AlumnUtbProgram">
+          <End Type="DatabasModel.Alumn" Role="Alumn" Multiplicity="*" />
+          <End Type="DatabasModel.UtbProgram" Role="UtbProgram" Multiplicity="1" />
+        </Association>
+        <EntityType Name="Anmälan">
+          <Key>
+            <PropertyRef Name="AnmId" />
+          </Key>
+          <Property Name="AnmId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Tidpunkt" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Alumn" Relationship="DatabasModel.AlumnAnmälan" FromRole="Anmälan" ToRole="Alumn" />
+          <NavigationProperty Name="Erbjudande" Relationship="DatabasModel.AnmälanErbjudande" FromRole="Anmälan" ToRole="Erbjudande" />
+          <NavigationProperty Name="Aktivitet" Relationship="DatabasModel.AnmälanAktivitet" FromRole="Anmälan" ToRole="Aktivitet" />
+        </EntityType>
+        <Association Name="AlumnAnmälan">
+          <End Type="DatabasModel.Alumn" Role="Alumn" Multiplicity="1" />
+          <End Type="DatabasModel.Anmälan" Role="Anmälan" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Aktivitet">
+          <Key>
+            <PropertyRef Name="AktID" />
+          </Key>
+          <Property Name="AktID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namn" Type="String" Nullable="false" />
+          <Property Name="Tillfälle" Type="DateTime" Nullable="false" />
+          <Property Name="AntalPlatser" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Anställd" Relationship="DatabasModel.AnställdAktivitet" FromRole="Aktivitet" ToRole="Anställd" />
+          <NavigationProperty Name="Anmälan" Relationship="DatabasModel.AnmälanAktivitet" FromRole="Aktivitet" ToRole="Anmälan" />
+          <NavigationProperty Name="Ämne" Relationship="DatabasModel.AktivitetÄmne" FromRole="Aktivitet" ToRole="Ämne" />
+        </EntityType>
+        <EntityType Name="Erbjudande">
+          <Key>
+            <PropertyRef Name="ErbjID" />
+          </Key>
+          <Property Name="ErbjID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namn" Type="String" Nullable="false" />
+          <Property Name="StartDatum" Type="DateTime" Nullable="false" />
+          <Property Name="SlutDatum" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Anmälan" Relationship="DatabasModel.AnmälanErbjudande" FromRole="Erbjudande" ToRole="Anmälan" />
+          <NavigationProperty Name="Ämne" Relationship="DatabasModel.ErbjudandeÄmne" FromRole="Erbjudande" ToRole="Ämne" />
+          <NavigationProperty Name="Anställd" Relationship="DatabasModel.AnställdErbjudande" FromRole="Erbjudande" ToRole="Anställd" />
+        </EntityType>
+        <EntityType Name="Ämne">
+          <Key>
+            <PropertyRef Name="ÄmnesID" />
+          </Key>
+          <Property Name="ÄmnesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Namn" Type="String" Nullable="false" />
+          <NavigationProperty Name="Aktivitet" Relationship="DatabasModel.AktivitetÄmne" FromRole="Ämne" ToRole="Aktivitet" />
+          <NavigationProperty Name="Erbjudande" Relationship="DatabasModel.ErbjudandeÄmne" FromRole="Ämne" ToRole="Erbjudande" />
+        </EntityType>
+        <Association Name="AnställdAktivitet">
+          <End Type="DatabasModel.Anställd" Role="Anställd" Multiplicity="1" />
+          <End Type="DatabasModel.Aktivitet" Role="Aktivitet" Multiplicity="*" />
+        </Association>
+        <Association Name="AnmälanErbjudande">
+          <End Type="DatabasModel.Anmälan" Role="Anmälan" Multiplicity="*" />
+          <End Type="DatabasModel.Erbjudande" Role="Erbjudande" Multiplicity="1" />
+        </Association>
+        <Association Name="AnmälanAktivitet">
+          <End Type="DatabasModel.Anmälan" Role="Anmälan" Multiplicity="*" />
+          <End Type="DatabasModel.Aktivitet" Role="Aktivitet" Multiplicity="1" />
+        </Association>
+        <Association Name="AktivitetÄmne">
+          <End Type="DatabasModel.Aktivitet" Role="Aktivitet" Multiplicity="*" />
+          <End Type="DatabasModel.Ämne" Role="Ämne" Multiplicity="1" />
+        </Association>
+        <Association Name="ErbjudandeÄmne">
+          <End Type="DatabasModel.Erbjudande" Role="Erbjudande" Multiplicity="*" />
+          <End Type="DatabasModel.Ämne" Role="Ämne" Multiplicity="1" />
+        </Association>
+        <Association Name="AnställdErbjudande">
+          <End Type="DatabasModel.Anställd" Role="Anställd" Multiplicity="1" />
+          <End Type="DatabasModel.Erbjudande" Role="Erbjudande" Multiplicity="*" />
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DatabasModelStoreContainer" CdmEntityContainer="DatabasModelContainer">
+    <EntitySetMapping Name="Person">
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Person)">
+        <MappingFragment StoreEntitySet="Person">
+          <ScalarProperty Name="PersNr" ColumnName="PersNr" />
+          <ScalarProperty Name="Förnamn" ColumnName="Förnamn" />
+          <ScalarProperty Name="Efternamn" ColumnName="Efternamn" />
+          <ScalarProperty Name="Adress" ColumnName="Adress" />
+          <ScalarProperty Name="PostNr" ColumnName="PostNr" />
+          <ScalarProperty Name="Ort" ColumnName="Ort" />
+          <ScalarProperty Name="TelNr" ColumnName="TelNr" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Lösenord" ColumnName="Lösenord" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Alumn)">
+        <MappingFragment StoreEntitySet="Person_Alumn">
+          <ScalarProperty Name="PersNr" ColumnName="PersNr" />
+          <ScalarProperty Name="AlumnId" ColumnName="AlumnId" />
+          <ScalarProperty Name="Program" ColumnName="Program" />
+          <ScalarProperty Name="Aktiv" ColumnName="Aktiv" />
+          <ScalarProperty Name="ExamensÅr" ColumnName="ExamensÅr" />
+        </MappingFragment>
+      </EntityTypeMapping>
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Anställd)">
+        <MappingFragment StoreEntitySet="Person_Anställd">
+          <ScalarProperty Name="PersNr" ColumnName="PersNr" />
+          <ScalarProperty Name="AnstID" ColumnName="AnstID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UtbProgram">
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.UtbProgram)">
+        <MappingFragment StoreEntitySet="UtbProgram">
+          <ScalarProperty Name="ProgID" ColumnName="ProgID" />
+          <ScalarProperty Name="Namn" ColumnName="Namn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Anmälan">
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Anmälan)">
+        <MappingFragment StoreEntitySet="Anmälan">
+          <ScalarProperty Name="AnmId" ColumnName="AnmId" />
+          <ScalarProperty Name="Tidpunkt" ColumnName="Tidpunkt" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Aktivitet">
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Aktivitet)">
+        <MappingFragment StoreEntitySet="Aktivitet">
+          <ScalarProperty Name="AktID" ColumnName="AktID" />
+          <ScalarProperty Name="Namn" ColumnName="Namn" />
+          <ScalarProperty Name="Tillfälle" ColumnName="Tillfälle" />
+          <ScalarProperty Name="AntalPlatser" ColumnName="AntalPlatser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Erbjudande">
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Erbjudande)">
+        <MappingFragment StoreEntitySet="Erbjudande">
+          <ScalarProperty Name="ErbjID" ColumnName="ErbjID" />
+          <ScalarProperty Name="Namn" ColumnName="Namn" />
+          <ScalarProperty Name="StartDatum" ColumnName="StartDatum" />
+          <ScalarProperty Name="SlutDatum" ColumnName="SlutDatum" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ämne">
+      <EntityTypeMapping TypeName="IsTypeOf(DatabasModel.Ämne)">
+        <MappingFragment StoreEntitySet="Ämne">
+          <ScalarProperty Name="ÄmnesID" ColumnName="ÄmnesID" />
+          <ScalarProperty Name="Namn" ColumnName="Namn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AlumnUtbProgram" TypeName="DatabasModel.AlumnUtbProgram" StoreEntitySet="Person_Alumn">
+      <EndProperty Name="UtbProgram">
+        <ScalarProperty Name="ProgID" ColumnName="UtbProgram_ProgID" />
+      </EndProperty>
+      <EndProperty Name="Alumn">
+        <ScalarProperty Name="PersNr" ColumnName="PersNr" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AlumnAnmälan" TypeName="DatabasModel.AlumnAnmälan" StoreEntitySet="Anmälan">
+      <EndProperty Name="Alumn">
+        <ScalarProperty Name="PersNr" ColumnName="Alumn_PersNr" />
+      </EndProperty>
+      <EndProperty Name="Anmälan">
+        <ScalarProperty Name="AnmId" ColumnName="AnmId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnställdAktivitet" TypeName="DatabasModel.AnställdAktivitet" StoreEntitySet="Aktivitet">
+      <EndProperty Name="Anställd">
+        <ScalarProperty Name="PersNr" ColumnName="Anställd_PersNr" />
+      </EndProperty>
+      <EndProperty Name="Aktivitet">
+        <ScalarProperty Name="AktID" ColumnName="AktID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnmälanErbjudande" TypeName="DatabasModel.AnmälanErbjudande" StoreEntitySet="Anmälan">
+      <EndProperty Name="Erbjudande">
+        <ScalarProperty Name="ErbjID" ColumnName="Erbjudande_ErbjID" />
+      </EndProperty>
+      <EndProperty Name="Anmälan">
+        <ScalarProperty Name="AnmId" ColumnName="AnmId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnmälanAktivitet" TypeName="DatabasModel.AnmälanAktivitet" StoreEntitySet="Anmälan">
+      <EndProperty Name="Aktivitet">
+        <ScalarProperty Name="AktID" ColumnName="Aktivitet_AktID" />
+      </EndProperty>
+      <EndProperty Name="Anmälan">
+        <ScalarProperty Name="AnmId" ColumnName="AnmId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AktivitetÄmne" TypeName="DatabasModel.AktivitetÄmne" StoreEntitySet="Aktivitet">
+      <EndProperty Name="Ämne">
+        <ScalarProperty Name="ÄmnesID" ColumnName="Ämne_ÄmnesID" />
+      </EndProperty>
+      <EndProperty Name="Aktivitet">
+        <ScalarProperty Name="AktID" ColumnName="AktID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="ErbjudandeÄmne" TypeName="DatabasModel.ErbjudandeÄmne" StoreEntitySet="Erbjudande">
+      <EndProperty Name="Ämne">
+        <ScalarProperty Name="ÄmnesID" ColumnName="Ämne_ÄmnesID" />
+      </EndProperty>
+      <EndProperty Name="Erbjudande">
+        <ScalarProperty Name="ErbjID" ColumnName="ErbjID" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="AnställdErbjudande" TypeName="DatabasModel.AnställdErbjudande" StoreEntitySet="Erbjudande">
+      <EndProperty Name="Anställd">
+        <ScalarProperty Name="PersNr" ColumnName="Anställd_PersNr" />
+      </EndProperty>
+      <EndProperty Name="Erbjudande">
+        <ScalarProperty Name="ErbjID" ColumnName="ErbjID" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

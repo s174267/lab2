@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4293f7fa7da64c27b4b64ed9b40d5e5a" Name="Diagram1" ZoomLevel="112" >
+        <EntityTypeShape EntityType="DatabasModel.Person" Width="1.5" PointX="0.5" PointY="0.5" />
+        <EntityTypeShape EntityType="DatabasModel.Alumn" Width="1.5" PointX="3.125" PointY="0.5" />
+        <InheritanceConnector EntityType="DatabasModel.Alumn" />
+        <EntityTypeShape EntityType="DatabasModel.Anställd" Width="1.5" PointX="0.5" PointY="4.25" />
+        <InheritanceConnector EntityType="DatabasModel.Anställd" />
+        <EntityTypeShape EntityType="DatabasModel.UtbProgram" Width="1.5" PointX="6.125" PointY="0.5" />
+        <AssociationConnector Association="DatabasModel.AlumnUtbProgram" ></AssociationConnector>
+        <EntityTypeShape EntityType="DatabasModel.Anmälan" Width="1.5" PointX="3.125" PointY="3.75" />
+        <AssociationConnector Association="DatabasModel.AlumnAnmälan" />
+        <EntityTypeShape EntityType="DatabasModel.Aktivitet" Width="1.5" PointX="3.125" PointY="6.75" />
+        <EntityTypeShape EntityType="DatabasModel.Erbjudande" Width="1.5" PointX="6.25" PointY="3.75" />
+        <EntityTypeShape EntityType="DatabasModel.Ämne" Width="1.5" PointX="6.25" PointY="6.75" />
+        <AssociationConnector Association="DatabasModel.AnställdAktivitet" />
+        <AssociationConnector Association="DatabasModel.AnmälanErbjudande" />
+        <AssociationConnector Association="DatabasModel.AnmälanAktivitet" />
+        <AssociationConnector Association="DatabasModel.AktivitetÄmne" />
+        <AssociationConnector Association="DatabasModel.ErbjudandeÄmne" />
+        <AssociationConnector Association="DatabasModel.AnställdErbjudande" ManuallyRouted="true" >
+          <ConnectorPoint PointX="2" PointY="5.8192350260416656" />
+          <ConnectorPoint PointX="2.462825" PointY="5.8192350260416656" />
+          <ConnectorPoint PointX="2.462825" PointY="6.3117254329283776" />
+          <ConnectorPoint PointX="3.7916666666666665" PointY="6.3117254329283767" />
+          <ConnectorPoint PointX="3.9583333333333335" PointY="6.3117254329283776" />
+          <ConnectorPoint PointX="4.8475" PointY="6.3117254329283776" />
+          <ConnectorPoint PointX="4.8475" PointY="5.8192350260416656" />
+          <ConnectorPoint PointX="6.25" PointY="5.8192350260416656" />
+        </AssociationConnector>
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
